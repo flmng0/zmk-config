@@ -9,8 +9,6 @@
 
 #define U_IDLE_MS 150
 
-/* #define HASH_SIGN # */
-
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME {                                       \
         compatible = "zmk,behavior-mod-morph";   \
