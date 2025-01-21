@@ -10,9 +10,9 @@
 #define U_IDLE_MS 150
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
-    NAME {                                       \
+    NAME: NAME {                                 \
         compatible = "zmk,behavior-mod-morph";   \
-        #binding-cells = <0>;          \
+        #binding-cells = <0>;                    \
         bindings = <&kp DEFAULT>, <&kp SHIFTED>; \
         mods = <MOD_LSFT>;                       \
     }
