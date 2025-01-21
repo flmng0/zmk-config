@@ -7,14 +7,14 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
-#define U_IDLE_MS <150>
+#define U_IDLE_MS 150
 
-#define HASH_SIGN #
+/* #define HASH_SIGN # */
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME {                                       \
         compatible = "zmk,behavior-mod-morph";   \
-        HASH_SIGN##binding-cells = <0>;          \
+        #binding-cells = <0>;          \
         bindings = <&kp DEFAULT>, <&kp SHIFTED>; \
         mods = <MOD_LSFT>;                       \
     }
@@ -25,7 +25,7 @@
         layers = <0>;                        \
         key-positions = <POSA POSB>;         \
         bindings = <&kp OUTPUT>;             \
-        require-prior-idle-ms = U_IDLE_MS;   \
+        require-prior-idle-ms = <U_IDLE_MS>; \
     }
 
 #define BASE 0
@@ -61,11 +61,11 @@
 };
 
 &lt {
-    require-prior-idle-ms = U_IDLE_MS;
+    require-prior-idle-ms = <U_IDLE_MS>;
 };
 
 &mt {
-    require-prior-idle-ms = U_IDLE_MS;
+    require-prior-idle-ms = <U_IDLE_MS>;
 };
 
 / {
