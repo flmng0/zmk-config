@@ -79,7 +79,7 @@
         HIGH_COL_COMBO(combo_underscore, 3, UNDERSCORE);
         HIGH_COL_COMBO(combo_tilde, 4, TILDE);
 
-        HIGH_COL_COMBO(combo_equals, 5, EQUALS);
+        HIGH_COL_COMBO(combo_equals, 5, EQUAL);
         HIGH_COL_COMBO(combo_hyphen, 6, MINUS);
         HIGH_COL_COMBO(combo_slash, 7, SLASH);
         HIGH_COL_COMBO(combo_pipe, 8, PIPE);
