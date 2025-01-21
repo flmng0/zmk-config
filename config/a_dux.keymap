@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-// #include <behaviors.dtsi>
-// #include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
 
 #define U_IDLE_MS <150>
 
@@ -56,11 +56,9 @@
 #define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+0), (XPOS+10), OUTPUT)
 #define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+10), (XPOS+20), OUTPUT)
 
-/*
 &caps_word {
     continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
 };
-*/
 
 &lt {
     require-prior-idle-ms = U_IDLE_MS;
