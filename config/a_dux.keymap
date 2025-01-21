@@ -4,15 +4,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
+// #include <behaviors.dtsi>
+// #include <dt-bindings/zmk/keys.h>
 
 #define U_IDLE_MS <150>
+
+#define HASH_SIGN #
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME {                                       \
         compatible = "zmk,behavior-mod-morph";   \
-        #binding-cells = <0>;                    \
+        HASH_SIGN##binding-cells = <0>;          \
         bindings = <&kp DEFAULT>, <&kp SHIFTED>; \
         mods = <MOD_LSFT>;                       \
     }
@@ -51,8 +53,8 @@
  * Helper macros to define the combos given a column coordinate, that use a key and the
  * key directly below it.
  */
-#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS + 0), (XPOS + 10), OUTPUT)
-#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS + 10), (XPOS + 20), OUTPUT)
+#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+0), (XPOS+10), OUTPUT)
+#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+10), (XPOS+20), OUTPUT)
 
 &caps_word {
     continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
