@@ -7,7 +7,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
-#define U_IDLE_MS <200>
+#define U_IDLE_MS <150>
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME {                                       \
@@ -23,8 +23,29 @@
         layers = <0>;                        \
         key-positions = <POSA POSB>;         \
         bindings = <&kp OUTPUT>;             \
-        require-prior-idle-ms = U_IDLE_MS    \
+        require-prior-idle-ms = U_IDLE_MS;   \
     }
+
+#define BASE 0
+#define NAV 1
+#define NUM 2
+
+/* Defined here so that the keymap can have consistent size. */
+#define HRM_R &mt LALT R
+#define HRM_S &mt LSHFT S
+#define HRM_T &mt LCTRL T
+#define HRM_G &mt LGUI G
+
+#define HRM_M &mt RGUI M
+#define HRM_N &mt RCTRL N
+#define HRM_E &mt RSHFT E
+#define HRM_I &mt LALT I
+
+/* TH(umb) L(eft)|R(ight) IN|OUT */
+#define TH_LOUT &lt NAV TAB
+#define TH_LIN  &lt NUM SPACE
+#define TH_RIN  &shcaps
+#define TH_ROUT &kp ENTER
 
 /*
  * Helper macros to define the combos given a column coordinate, that use a key and the
@@ -35,6 +56,14 @@
 
 &caps_word {
     continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
+};
+
+&lt {
+    require-prior-idle-ms = U_IDLE_MS;
+};
+
+&mt {
+    require-prior-idle-ms = U_IDLE_MS;
 };
 
 / {
@@ -101,15 +130,38 @@
     keymap {
         compatible = "zmk,keymap";
 
-        base_layer {
+        base_colemak {
+            display-name = "CMK";
+
             bindings = <
                 &kp Q     &kp W     &kp F     &kp P     &kp B     &kp J     &kp L     &kp U     &kp Y     &qumexm
-                &kp A     &kp R     &kp S     &kp T     &kp G     &kp M     &kp N     &kp E     &kp I     &kp O
+                &kp A     HRM_R     HRM_S     HRM_T     HRM_G     HRM_M     HRM_N     HRM_E     HRM_I     &kp O
                 &kp Z     &kp X     &kp C     &kp D     &kp V     &kp K     &kp H     &commsc   &dotcol   &kp APOS
-                                              &kp TAB   &kp SPACE &shcaps   &kp ENTER
+                                              TH_LOUT   TH_LIN    TH_RIN    TH_ROUT
             >;
         };
 
+        navigation {
+            display-name = "NAV";
+
+            bindings = <
+                &kp ESC   &none     &none     &none     &none     &kp PG_UP &none     &none     &none     &none
+                &kp LGUI  &kp LALT  &kp LSHFT &kp LCTRL &none     &kp PG_DN &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT
+                &none     &none     &none     &none     &none     &none     &kp H     &kp J     &kp K     &kp L
+                                              &trans    &trans    &trans    &trans
+            >;
+        };
+
+        number {
+            display-name = "NUM";
+
+            bindings = <
+                &none     &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
+                &none     &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
+                &none     &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
+                                              &trans    &trans    &trans    &trans
+            >;
+        };
     };
 
 };
