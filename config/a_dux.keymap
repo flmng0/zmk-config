@@ -7,20 +7,109 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
+#define U_IDLE_MS <200>
+
+#define RESHIFT(NAME, DEFAULT, SHIFTED)          \
+    NAME {                                       \
+        compatible = "zmk,behavior-mod-morph";   \
+        #binding-cells = <0>;                    \
+        bindings = <&kp DEFAULT>, <&kp SHIFTED>; \
+        mods = <MOD_LSFT>;                       \
+    }
+
+#define BASE_COMBO(NAME, POSA, POSB, OUTPUT) \
+    NAME {                                   \
+        timeout-ms = <50>;                   \
+        layers = <0>;                        \
+        key-positions = <POSA POSB>;         \
+        bindings = <&kp OUTPUT>;             \
+        require-prior-idle-ms = U_IDLE_MS    \
+    }
+
+/*
+ * Helper macros to define the combos given a column coordinate, that use a key and the
+ * key directly below it.
+ */
+#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS + 0), (XPOS + 10), OUTPUT)
+#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS + 10), (XPOS + 20), OUTPUT)
+
+&caps_word {
+    continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
+};
+
 / {
+
+    combos {
+        compatible = "zmk,combos";
+
+        /* Vertical shape combos along the top row of the keyboard. */
+        HIGH_COL_COMBO(combo_grave, 1, GRAVE);
+        HIGH_COL_COMBO(combo_backslash, 2, BACKSLASH);
+        HIGH_COL_COMBO(combo_underscore, 3, UNDERSCORE);
+        HIGH_COL_COMBO(combo_tilde, 4, TILDE);
+
+        HIGH_COL_COMBO(combo_equals, 5, EQUALS);
+        HIGH_COL_COMBO(combo_hyphen, 6, MINUS);
+        HIGH_COL_COMBO(combo_slash, 7, SLASH);
+        HIGH_COL_COMBO(combo_pipe, 8, PIPE);
+        
+        /* Vertical shape combos along the bottom row of the keyboard. */
+        LOW_COL_COMBO(combo_at, 1, AT_SIGN);
+        LOW_COL_COMBO(combo_pound, 2, POUND);
+        LOW_COL_COMBO(combo_dollar, 3, DOLLAR);
+        LOW_COL_COMBO(combo_percent, 4, PERCENT);
+
+        LOW_COL_COMBO(combo_caret, 5, CARET);
+        LOW_COL_COMBO(combo_plus, 6, PLUS);
+        LOW_COL_COMBO(combo_asterisk, 7, ASTERISK);
+        LOW_COL_COMBO(combo_ampersand, 8, AMPERSAND);
+
+        /* () */
+        BASE_COMBO(combo_lparen, 12, 13, LEFT_PARENTHESIS);
+        BASE_COMBO(combo_rparen, 17, 16, RIGHT_PARENTHESIS);
+
+        /* {} */
+        BASE_COMBO(combo_lbrace, 12, 13, LEFT_BRACE);
+        BASE_COMBO(combo_rbrace, 18, 17, RIGHT_BRACE);
+
+        /* <> */
+        BASE_COMBO(combo_langle, 13, 14, LESS_THAN);
+        BASE_COMBO(combo_rangle, 16, 15, GREATER_THAN);
+
+        /* [] */
+        BASE_COMBO(combo_lbracket, 11, 13, LEFT_BRACKET);
+        BASE_COMBO(combo_rbracket, 18, 16, RIGHT_BRACKET);
+
+        /* Functional keys */
+        BASE_COMBO(combo_backspace, 6, 7, BACKSPACE);
+        BASE_COMBO(combo_delete, 7, 8, DELETE);
+    };
+
+    behaviors {
+        RESHIFT(qumexm, QUESTION, EXCLAMATION);
+        RESHIFT(commsc, COMMA, SEMICOLON);
+        RESHIFT(dotcol, DOT, COLON);
+
+        shcaps: shift_caps_word {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&sk LSHIFT>, <&caps_word>;
+            mods = <MOD_LSFT>;
+        };
+    };
 
     keymap {
         compatible = "zmk,keymap";
 
-        // This is a sample keymap intended to be replaced with your own
         base_layer {
             bindings = <
-                &kp Q     &kp W     &kp E     &kp R     &kp T     &kp Y     &kp U     &kp I     &kp O     &kp P
-                &kp A     &kp S     &kp D     &kp F     &kp G     &kp H     &kp J     &kp K     &kp L     &kp SEMI
-                &kp Z     &kp X     &kp C     &kp V     &kp B     &kp N     &kp M     &kp COMMA &kp DOT   &kp SLASH
-                                              &kp TAB   &kp BSPC  &kp SPACE &kp ENTER
+                &kp Q     &kp W     &kp F     &kp P     &kp B     &kp J     &kp L     &kp U     &kp Y     &qumexm
+                &kp A     &kp R     &kp S     &kp T     &kp G     &kp M     &kp N     &kp E     &kp I     &kp O
+                &kp Z     &kp X     &kp C     &kp D     &kp V     &kp K     &kp H     &commsc   &dotcol   &kp APOS
+                                              &kp TAB   &kp SPACE &shcaps   &kp ENTER
             >;
         };
 
     };
+
 };
