@@ -139,7 +139,7 @@
             #binding-cells = <2>;
             flavor = "tap-preffered";
             bindings = <&kp>, <&kp>;
-        }
+        };
     };
 
     keymap {
