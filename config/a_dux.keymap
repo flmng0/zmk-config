@@ -30,7 +30,7 @@
 
 #define BLUETOOTH_PROFILE(NAME, PROFILEN)       \
     NAME: NAME {                                \
-        compatible = "zmk-behaviour-mod-morph"; \
+        compatible = "zmk-behavior-mod-morph"; \
         #binding-cells = <0>;                   \
         bindings = <&bt BT_SEL PROFILEN>,       \
                    <&bt BT_CLR>;                \
@@ -152,7 +152,7 @@
         };
 
         kk: key_key_hold_tap {
-            compatible = "zmk,behaviour-hold-tap";
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preffered";
             tapping-term-ms = <300>;
