@@ -42,8 +42,8 @@
 #define HRM_I &mt LALT I
 
 /* TH(umb) L(eft)|R(ight) IN|OUT */
-#define TH_LOUT &lt NAV TAB
-#define TH_LIN  &lt NUM SPACE
+#define TH_LOUT &lt NUM TAB
+#define TH_LIN  &lt NAV SPACE
 #define TH_RIN  &shcaps
 #define TH_ROUT &kp ENTER
 
@@ -64,6 +64,7 @@
 
 &mt {
     require-prior-idle-ms = <U_IDLE_MS>;
+    flavor = "balanced";
 };
 
 / {
