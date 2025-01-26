@@ -78,6 +78,7 @@
 };
 
 &lt {
+    require-prior-idle-ms = <150>;
     flavor = "hold-preferred";
 };
 
