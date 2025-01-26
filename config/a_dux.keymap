@@ -27,6 +27,8 @@
         require-prior-idle-ms = <COMBO_IDLE_MS>; \
     }
 
+#define BLUEP(PROFILEN) &btp PROFILEN BT_CLR
+
 #define BASE 0
 #define NAV 1
 #define NUM 2
@@ -49,8 +51,8 @@
 #define TH_ROUT &kp ENTER
 
 #define N_LEFT  &kk HOME LEFT
-#define N_DOWN  &kk PG_UP UP
-#define N_UP    &kk PG_DOWN DOWN
+#define N_DOWN  &kk PAGE_UP UP
+#define N_UP    &kk PAGE_DOWN DOWN
 #define N_RIGHT &kk END RIGHT
 
 /*
@@ -140,6 +142,14 @@
             flavor = "tap-preffered";
             bindings = <&kp>, <&kp>;
         };
+
+        btp: bluetooth_profile {
+            compatible = "zmk,behaviour-hold-tap";
+            #binding-cells = <2>;
+            tapping-term = <3000>;
+            flavor = "tap-preffered";
+            bindings = <&bt BT_SEL>, <&bt>;
+        };
     };
 
     keymap {
@@ -171,9 +181,9 @@
             display-name = "NUM";
 
             bindings = <
-                &none     &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
-                &none     &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
-                &none     &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
+                BLUEP(0)  &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
+                BLUEP(1)  &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
+                BLUEP(2)  &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
                                               &trans    &trans    &trans    &trans
             >;
         };
