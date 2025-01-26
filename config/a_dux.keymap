@@ -27,13 +27,13 @@
         require-prior-idle-ms = <COMBO_IDLE_MS>; \
     }
 
-/* Technically the second parameter shouldn't make a difference here. */
-#define BLUETOOTH_PROFILE(NAME, PROFILEN)               \
-    NAME: NAME {                                        \
-        compatible = "zmk-behaviour-mod-morph";         \
-        #binding-cells = <0>;                           \
-        bindings = <&bt BT_SEL PROFILEN>, <&bt BT_CLR>; \
-        mods = <MOD_LSFT>;                              \
+#define BLUETOOTH_PROFILE(NAME, PROFILEN)       \
+    NAME: NAME {                                \
+        compatible = "zmk-behaviour-mod-morph"; \
+        #binding-cells = <0>;                   \
+        bindings = <&bt BT_SEL PROFILEN>,       \
+                   <&bt BT_CLR PROFILEN>;       \
+        mods = <MOD_LSFT>;                      \
     }
 
     
