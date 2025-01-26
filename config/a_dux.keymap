@@ -8,6 +8,7 @@
 #include <dt-bindings/zmk/keys.h>
 
 #define U_IDLE_MS 200
+#define COMBO_IDLE_MS 100
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME: NAME {                                 \
@@ -17,13 +18,13 @@
         mods = <MOD_LSFT>;                       \
     }
 
-#define BASE_COMBO(NAME, POSA, POSB, OUTPUT) \
-    NAME {                                   \
-        timeout-ms = <75>;                   \
-        layers = <0>;                        \
-        key-positions = <POSA POSB>;         \
-        bindings = <&kp OUTPUT>;             \
-        require-prior-idle-ms = <U_IDLE_MS>; \
+#define BASE_COMBO(NAME, POSA, POSB, OUTPUT)     \
+    NAME {                                       \
+        timeout-ms = <75>;                       \
+        layers = <0>;                            \
+        key-positions = <POSA POSB>;             \
+        bindings = <&kp OUTPUT>;                 \
+        require-prior-idle-ms = <COMBO_IDLE_MS>; \
     }
 
 #define BASE 0
