@@ -8,8 +8,8 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define U_IDLE_MS 200
-#define COMBO_IDLE_MS 100
+#define U_IDLE_MS 125
+#define COMBO_IDLE_MS 65
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME: NAME {                                 \
@@ -21,7 +21,7 @@
 
 #define BASE_COMBO(NAME, POSA, POSB, OUTPUT, IDLE)  \
     NAME {                                          \
-        timeout-ms = <75>;                          \
+        timeout-ms = <55>;                          \
         layers = <0>;                               \
         key-positions = <POSA POSB>;                \
         bindings = <&kp OUTPUT>;                    \
@@ -78,7 +78,6 @@
 };
 
 &lt {
-    require-prior-idle-ms = <U_IDLE_MS>;
     flavor = "hold-preferred";
 };
 
