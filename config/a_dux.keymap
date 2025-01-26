@@ -19,18 +19,18 @@
         mods = <MOD_LSFT>;                       \
     }
 
-#define BASE_COMBO(NAME, POSA, POSB, OUTPUT)     \
-    NAME {                                       \
-        timeout-ms = <75>;                       \
-        layers = <0>;                            \
-        key-positions = <POSA POSB>;             \
-        bindings = <&kp OUTPUT>;                 \
-        require-prior-idle-ms = <COMBO_IDLE_MS>; \
+#define BASE_COMBO(NAME, POSA, POSB, OUTPUT, IDLE)  \
+    NAME {                                          \
+        timeout-ms = <75>;                          \
+        layers = <0>;                               \
+        key-positions = <POSA POSB>;                \
+        bindings = <&kp OUTPUT>;                    \
+        require-prior-idle-ms = <IDLE>;             \
     }
 
 #define BLUETOOTH_PROFILE(NAME, PROFILEN)       \
     NAME: NAME {                                \
-        compatible = "zmk,behavior-mod-morph"; \
+        compatible = "zmk,behavior-mod-morph";  \
         #binding-cells = <0>;                   \
         bindings = <&bt BT_SEL PROFILEN>,       \
                    <&bt BT_CLR>;                \
@@ -62,16 +62,16 @@
 #define TH_ROUT &kp ENTER
 
 #define N_LEFT  &kk HOME LEFT
-#define N_DOWN  &kk PAGE_UP UP
-#define N_UP    &kk PAGE_DOWN DOWN
+#define N_DOWN  &kk PAGE_DOWN DOWN
+#define N_UP    &kk PAGE_UP UP
 #define N_RIGHT &kk END RIGHT
 
 /*
  * Helper macros to define the combos given a column coordinate, that use a key and the
  * key directly below it.
  */
-#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+0), (XPOS+10), OUTPUT)
-#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+10), (XPOS+20), OUTPUT)
+#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+0), (XPOS+10), OUTPUT, COMBO_IDLE_MS)
+#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+10), (XPOS+20), OUTPUT, COMBO_IDLE_MS)
 
 &caps_word {
     continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
@@ -115,24 +115,24 @@
         LOW_COL_COMBO(combo_ampersand, 8, AMPERSAND);
 
         /* () */
-        BASE_COMBO(combo_lparen, 12, 13, LEFT_PARENTHESIS);
-        BASE_COMBO(combo_rparen, 17, 16, RIGHT_PARENTHESIS);
+        BASE_COMBO(combo_lparen, 12, 13, LEFT_PARENTHESIS, U_IDLE_MS);
+        BASE_COMBO(combo_rparen, 17, 16, RIGHT_PARENTHESIS, U_IDLE_MS);
 
         /* {} */
-        BASE_COMBO(combo_lbrace, 11, 12, LEFT_BRACE);
-        BASE_COMBO(combo_rbrace, 18, 17, RIGHT_BRACE);
+        BASE_COMBO(combo_lbrace, 11, 12, LEFT_BRACE, U_IDLE_MS);
+        BASE_COMBO(combo_rbrace, 18, 17, RIGHT_BRACE, U_IDLE_MS);
 
         /* <> */
-        BASE_COMBO(combo_langle, 13, 14, LESS_THAN);
-        BASE_COMBO(combo_rangle, 16, 15, GREATER_THAN);
+        BASE_COMBO(combo_langle, 13, 14, LESS_THAN, U_IDLE_MS);
+        BASE_COMBO(combo_rangle, 16, 15, GREATER_THAN, U_IDLE_MS);
 
         /* [] */
-        BASE_COMBO(combo_lbracket, 11, 13, LEFT_BRACKET);
-        BASE_COMBO(combo_rbracket, 18, 16, RIGHT_BRACKET);
+        BASE_COMBO(combo_lbracket, 11, 13, LEFT_BRACKET, U_IDLE_MS);
+        BASE_COMBO(combo_rbracket, 18, 16, RIGHT_BRACKET, U_IDLE_MS);
 
         /* Functional keys */
-        BASE_COMBO(combo_backspace, 6, 7, BACKSPACE);
-        BASE_COMBO(combo_delete, 7, 8, DELETE);
+        BASE_COMBO(combo_backspace, 6, 7, BACKSPACE, COMBO_IDLE_MS);
+        BASE_COMBO(combo_delete, 7, 8, DELETE, COMBO_IDLE_MS);
     };
 
     behaviors {
@@ -156,6 +156,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <300>;
+            require-prior-idle-ms = <U_IDLE_MS>;
             bindings = <&kp>, <&kp>;
         };
     };
