@@ -7,7 +7,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
-#define U_IDLE_MS 150
+#define U_IDLE_MS 200
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
     NAME: NAME {                                 \
@@ -19,7 +19,7 @@
 
 #define BASE_COMBO(NAME, POSA, POSB, OUTPUT) \
     NAME {                                   \
-        timeout-ms = <50>;                   \
+        timeout-ms = <75>;                   \
         layers = <0>;                        \
         key-positions = <POSA POSB>;         \
         bindings = <&kp OUTPUT>;             \
@@ -47,6 +47,11 @@
 #define TH_RIN  &shcaps
 #define TH_ROUT &kp ENTER
 
+#define N_LEFT  &kk HOME LEFT
+#define N_DOWN  &kk PG_UP UP
+#define N_UP    &kk PG_DOWN DOWN
+#define N_RIGHT &kk END RIGHT
+
 /*
  * Helper macros to define the combos given a column coordinate, that use a key and the
  * key directly below it.
@@ -60,6 +65,7 @@
 
 &lt {
     require-prior-idle-ms = <U_IDLE_MS>;
+    flavor = "hold-preferred";
 };
 
 &mt {
@@ -99,7 +105,7 @@
         BASE_COMBO(combo_rparen, 17, 16, RIGHT_PARENTHESIS);
 
         /* {} */
-        BASE_COMBO(combo_lbrace, 12, 13, LEFT_BRACE);
+        BASE_COMBO(combo_lbrace, 11, 12, LEFT_BRACE);
         BASE_COMBO(combo_rbrace, 18, 17, RIGHT_BRACE);
 
         /* <> */
@@ -126,6 +132,13 @@
             bindings = <&sk LSHIFT>, <&caps_word>;
             mods = <MOD_LSFT>;
         };
+
+        kk: key_key_hold_tap {
+            compatible = "zmk,behaviour-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preffered";
+            bindings = <&kp>, <&kp>;
+        }
     };
 
     keymap {
@@ -147,7 +160,7 @@
 
             bindings = <
                 &kp ESC   &none     &none     &none     &none     &kp PG_UP &none     &none     &none     &none
-                &kp LGUI  &kp LALT  &kp LSHFT &kp LCTRL &none     &kp PG_DN &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT
+                &kp LGUI  &kp LALT  &kp LSHFT &kp LCTRL &none     &kp PG_DN N_LEFT    N_DOWN    N_UP      N_RIGHT
                 &none     &none     &none     &none     &none     &none     &kp H     &kp J     &kp K     &kp L
                                               &trans    &trans    &trans    &trans
             >;
