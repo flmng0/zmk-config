@@ -28,6 +28,15 @@
     }
 
 /* Technically the second parameter shouldn't make a difference here. */
+#define BLUETOOTH_PROFILE(NAME, PROFILEN)               \
+    NAME: NAME {                                        \
+        compatible = "zmk-behaviour-mod-morph";         \
+        #binding-cells = <0>;                           \
+        bindings = <&bt BT_SEL PROFILEN>, <&bt BT_CLR>; \
+        mods = <MOD_LSFT>;                              \
+    }
+
+    
 #define BLUEP(PROFILEN) &btp PROFILEN PROFILEN
 
 #define BASE 0
@@ -130,6 +139,10 @@
         RESHIFT(commsc, COMMA, SEMICOLON);
         RESHIFT(dotcol, DOT, COLON);
 
+        BLUETOOTH_PROFILE(btp0, 0);
+        BLUETOOTH_PROFILE(btp1, 1);
+        BLUETOOTH_PROFILE(btp2, 2);
+
         shcaps: shift_caps_word {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -142,14 +155,6 @@
             #binding-cells = <2>;
             flavor = "tap-preffered";
             bindings = <&kp>, <&kp>;
-        };
-
-        btp: bluetooth_profile {
-            compatible = "zmk,behaviour-hold-tap";
-            #binding-cells = <2>;
-            tapping-term = <3000>;
-            flavor = "tap-preffered";
-            bindings = <&bt BT_SEL>, <&bt BT_CLR>;
         };
     };
 
@@ -182,9 +187,9 @@
             display-name = "NUM";
 
             bindings = <
-                BLUEP(0)  &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
-                BLUEP(1)  &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
-                BLUEP(2)  &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
+                &btp0     &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
+                &btp1     &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
+                &btp2     &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
                                               &trans    &trans    &trans    &trans
             >;
         };
