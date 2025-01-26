@@ -154,7 +154,7 @@
         kk: key_key_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "tap-preffered";
+            flavor = "tap-preferred";
             tapping-term-ms = <300>;
             bindings = <&kp>, <&kp>;
         };
