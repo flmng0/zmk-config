@@ -78,8 +78,8 @@
 };
 
 &lt {
-    require-prior-idle-ms = <150>;
-    flavor = "hold-preferred";
+    require-prior-idle-ms = <200>;
+    flavor = "tap-preferred";
 };
 
 &mt {
