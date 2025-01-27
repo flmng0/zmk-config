@@ -66,6 +66,8 @@
 #define N_UP    &kk PAGE_UP UP
 #define N_RIGHT &kk END RIGHT
 
+#define Q_POWER &pow EXT_POWER_TOGGLE_CMD Q
+
 /*
  * Helper macros to define the combos given a column coordinate, that use a key and the
  * key directly below it.
@@ -160,6 +162,15 @@
             require-prior-idle-ms = <U_IDLE_MS>;
             bindings = <&kp>, <&kp>;
         };
+
+        pow: power_off {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <2000>;
+            require-prior-idle-ms = <3000>;
+            bindings = <&ext_power, &kp>;
+        }
     };
 
     keymap {
@@ -169,7 +180,7 @@
             display-name = "CMK";
 
             bindings = <
-                &kp Q     &kp W     &kp F     &kp P     &kp B     &kp J     &kp L     &kp U     &kp Y     &qumexm
+                Q_POWER   &kp W     &kp F     &kp P     &kp B     &kp J     &kp L     &kp U     &kp Y     &qumexm
                 &kp A     HRM_R     HRM_S     HRM_T     HRM_G     HRM_M     HRM_N     HRM_E     HRM_I     &kp O
                 &kp Z     &kp X     &kp C     &kp D     &kp V     &kp K     &kp H     &commsc   &dotcol   &kp APOS
                                               TH_LOUT   TH_LIN    TH_RIN    TH_ROUT
