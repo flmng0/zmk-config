@@ -214,10 +214,10 @@
             display-name = "FUN";
 
             bindings = <
-                &btp0     BLUED(0)  &none     &none     &ext_power EP_TOG &kp C_PP   &kp C_PREV   &kp C_NEXT   &none   &none
-                &btp1     BLUED(1)  &none     &none     &none             &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &none   &none
-                &btp2     BLUED(2)  &none     &none     &none             &none      &none        &none        &none   &none
-                                              &none     &none             &trans     &trans
+                &btp0     BLUED(0)  &none     &none     &ext_power EP_TOG &kp C_PP    &kp C_PREV   &kp C_NEXT   &none   &none
+                &btp1     BLUED(1)  &none     &none     &none             &kp C_MUTE  &kp C_VOL_DN &kp C_VOL_UP &none   &none
+                &btp2     BLUED(2)  &none     &none     &bootloader       &bootloader &none        &none        &none   &none
+                                              &none     &none             &trans      &trans
             >;
         };
     };
