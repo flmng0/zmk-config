@@ -170,7 +170,7 @@
             flavor = "tap-preferred";
             tapping-term-ms = <2000>;
             require-prior-idle-ms = <3000>;
-            bindings = <&ext_power, &kp>;
+            bindings = <&ext_power>, <&kp>;
         };
     };
 
