@@ -38,12 +38,13 @@
         mods = <MOD_LSFT>;                      \
     }
 
-    
-#define BLUEP(PROFILEN) &btp PROFILEN PROFILEN
+#define BLUED(PROFILEN) &bt BT_DISC PROFILEN
+
 
 #define BASE 0
 #define NAV 1
 #define NUM 2
+#define FUN 3
 
 /* Defined here so that the keymap can have consistent size. */
 #define HRM_R &mt LALT R
@@ -67,8 +68,6 @@
 #define N_UP    &kk PAGE_UP UP
 #define N_RIGHT &kk END RIGHT
 
-#define Q_POWER &pow EXT_POWER_TOGGLE_CMD Q
-
 /*
  * Helper macros to define the combos given a column coordinate, that use a key and the
  * key directly below it.
@@ -81,8 +80,9 @@
 };
 
 &lt {
-    require-prior-idle-ms = <U_IDLE_MS>;
-    flavor = "tap-preferred";
+    /* require-prior-idle-ms = <100>; */
+    tapping-term-ms = <250>;
+    flavor = "balanced";
 };
 
 &mt {
@@ -92,6 +92,15 @@
 };
 
 / {
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        function_layer {
+            if-layers = <NAV NUM>;
+            then-layer = <FUN>;
+        };
+    };
 
     combos {
         compatible = "zmk,combos";
@@ -163,15 +172,6 @@
             require-prior-idle-ms = <U_IDLE_MS>;
             bindings = <&kp>, <&kp>;
         };
-
-        pow: power_off {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <2000>;
-            require-prior-idle-ms = <3000>;
-            bindings = <&ext_power>, <&kp>;
-        };
     };
 
     keymap {
@@ -181,7 +181,7 @@
             display-name = "CMK";
 
             bindings = <
-                Q_POWER   &kp W     &kp F     &kp P     &kp B     &kp J     &kp L     &kp U     &kp Y     &qumexm
+                &kp Q     &kp W     &kp F     &kp P     &kp B     &kp J     &kp L     &kp U     &kp Y     &qumexm
                 &kp A     HRM_R     HRM_S     HRM_T     HRM_G     HRM_M     HRM_N     HRM_E     HRM_I     &kp O
                 &kp Z     &kp X     &kp C     &kp D     &kp V     &kp K     &kp H     &commsc   &dotcol   &kp APOS
                                               TH_LOUT   TH_LIN    TH_RIN    TH_ROUT
@@ -203,12 +203,23 @@
             display-name = "NUM";
 
             bindings = <
-                &btp0     &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
-                &btp1     &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
-                &btp2     &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
+                &none     &kp F7    &kp F8    &kp F9    &kp F12   &kp UNDER &kp N7    &kp N8    &kp N9    &none
+                &none     &kp F4    &kp F5    &kp F6    &kp F11   &kp N0    &kp N4    &kp N5    &kp N6    &kp COMMA
+                &none     &kp F1    &kp F2    &kp F3    &kp F10   &kp ENTER &kp N1    &kp N2    &kp N3    &kp DOT
                                               &trans    &trans    &trans    &trans
             >;
         };
+
+        function {
+            display-name = "FUN";
+
+            bindings = <
+                &btp0     BLUED(0)  &none     &none     &ext_power EP_TOG &kp C_PP   &kp C_PREV   &kp C_NEXT   &none   &none
+                &btp1     BLUED(1)  &none     &none     &none             &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &none   &none
+                &btp2     BLUED(2)  &none     &none     &none             &none      &none        &none        &none   &none
+                                              &none     &none             &trans     &trans
+            >;
+        }
     };
 
 };
