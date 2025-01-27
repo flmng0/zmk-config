@@ -68,6 +68,8 @@
 #define N_UP    &kk PAGE_UP UP
 #define N_RIGHT &kk END RIGHT
 
+#define POW_TAP(KEY) &powtap 0 KEY
+
 /*
  * Helper macros to define the combos given a column coordinate, that use a key and the
  * key directly below it.
@@ -172,6 +174,15 @@
             require-prior-idle-ms = <U_IDLE_MS>;
             bindings = <&kp>, <&kp>;
         };
+
+        powtap: power_kp_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <3000>;
+            require-prior-idle-ms = <1000>;
+            bindings = <&soft_off>, <&kp>;
+        };
     };
 
     keymap {
@@ -192,9 +203,9 @@
             display-name = "NAV";
 
             bindings = <
-                &kp ESC   &none     &none     &none     &none     &kp PG_UP &none     &none     &none     &none
-                &kp LGUI  &kp LALT  &kp LSHFT &kp LCTRL &none     &kp PG_DN N_LEFT    N_DOWN    N_UP      N_RIGHT
-                &none     &none     &none     &none     &none     &none     &kp H     &kp J     &kp K     &kp L
+                POW_TAP(ESC) &none     &none     &none     &none     &kp PG_UP &none     &none     &none     &none
+                &kp LGUI     &kp LALT  &kp LSHFT &kp LCTRL &none     &kp PG_DN N_LEFT    N_DOWN    N_UP      N_RIGHT
+                &none        &none     &none     &none     &none     &none     &kp H     &kp J     &kp K     &kp L
                                               &trans    &trans    &trans    &trans
             >;
         };
@@ -214,10 +225,10 @@
             display-name = "FUN";
 
             bindings = <
-                &btp0     BLUED(0)  &none     &none     &ext_power EP_TOG &kp C_PP    &kp C_PREV   &kp C_NEXT   &none   &none
-                &btp1     BLUED(1)  &none     &none     &none             &kp C_MUTE  &kp C_VOL_DN &kp C_VOL_UP &none   &none
-                &btp2     BLUED(2)  &none     &none     &bootloader       &bootloader &none        &none        &none   &none
-                                              &none     &none             &trans      &trans
+                &btp0     BLUED(0)  &none     &none     &none       &kp C_PP    &kp C_PREV   &kp C_NEXT   &none   &none
+                &btp1     BLUED(1)  &none     &none     &none       &kp C_MUTE  &kp C_VOL_DN &kp C_VOL_UP &none   &none
+                &btp2     BLUED(2)  &none     &none     &bootloader &bootloader &none        &none        &none   &none
+                                              &none     &none       &trans      &trans
             >;
         };
     };
