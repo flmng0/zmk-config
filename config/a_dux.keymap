@@ -219,7 +219,7 @@
                 &btp2     BLUED(2)  &none     &none     &none             &none      &none        &none        &none   &none
                                               &none     &none             &trans     &trans
             >;
-        }
+        };
     };
 
 };
