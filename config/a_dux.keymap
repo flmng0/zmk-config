@@ -145,20 +145,20 @@
          * on roll-over */
 
         /* () */
-        COMBO(combo_lparen, 22, 23, LEFT_PARENTHESIS, 30, U_IDLE_MS);
-        COMBO(combo_rparen, 27, 26, RIGHT_PARENTHESIS, 30, U_IDLE_MS);
+        COMBO(combo_lparen, 12, 13, LEFT_PARENTHESIS, 30, U_IDLE_MS);
+        COMBO(combo_rparen, 17, 16, RIGHT_PARENTHESIS, 30, U_IDLE_MS);
 
         /* {} */
-        COMBO(combo_lbrace, 21, 22, LEFT_BRACE, 30, U_IDLE_MS);
-        COMBO(combo_rbrace, 28, 27, RIGHT_BRACE, 30, U_IDLE_MS);
+        COMBO(combo_lbrace, 11, 12, LEFT_BRACE, 30, U_IDLE_MS);
+        COMBO(combo_rbrace, 18, 17, RIGHT_BRACE, 30, U_IDLE_MS);
 
         /* [] */
-        COMBO(combo_lbracket, 21, 23, LEFT_BRACKET, 30, U_IDLE_MS);
-        COMBO(combo_rbracket, 28, 26, RIGHT_BRACKET, 30, U_IDLE_MS);
+        COMBO(combo_lbracket, 11, 13, LEFT_BRACKET, 30, U_IDLE_MS);
+        COMBO(combo_rbracket, 18, 16, RIGHT_BRACKET, 30, U_IDLE_MS);
 
         /* <> */
-        COMBO(combo_langle, 23, 24, LESS_THAN, 20, U_IDLE_MS);
-        COMBO(combo_rangle, 26, 25, GREATER_THAN, 20, U_IDLE_MS);
+        COMBO(combo_langle, 13, 14, LESS_THAN, 20, U_IDLE_MS);
+        COMBO(combo_rangle, 16, 15, GREATER_THAN, 20, U_IDLE_MS);
 
         /* Functional keys */
         /* These get a lenient combo term, but not as lenient idle requirement */
