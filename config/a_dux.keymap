@@ -10,6 +10,7 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 #define U_IDLE_MS 150
+#define COMBO_TERM_MS 50
 #define COMBO_IDLE_MS 95
 
 #define RESHIFT(NAME, DEFAULT, SHIFTED)          \
@@ -20,9 +21,9 @@
         mods = <MOD_LSFT>;                       \
     }
 
-#define BASE_COMBO(NAME, POSA, POSB, OUTPUT, IDLE)  \
+#define COMBO(NAME, POSA, POSB, OUTPUT, TERM, IDLE) \
     NAME {                                          \
-        timeout-ms = <55>;                          \
+        timeout-ms = <TERM>;                        \
         layers = <0>;                               \
         key-positions = <POSA POSB>;                \
         bindings = <&kp OUTPUT>;                    \
@@ -77,8 +78,8 @@
  * Since these are much harder to misfire on (not possible to roll), then the idle ms is
  * set to something lower than the default.
  */
-#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+0), (XPOS+10), OUTPUT, COMBO_IDLE_MS)
-#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) BASE_COMBO(NAME, (XPOS+10), (XPOS+20), OUTPUT, COMBO_IDLE_MS)
+#define HIGH_COL_COMBO(NAME, XPOS, OUTPUT) COMBO(NAME, (XPOS+0), (XPOS+10), OUTPUT, COMBO_TERM_MS, COMBO_IDLE_MS)
+#define LOW_COL_COMBO(NAME, XPOS, OUTPUT) COMBO(NAME, (XPOS+10), (XPOS+20), OUTPUT, COMBO_TERM_MS, COMBO_IDLE_MS)
 
 &caps_word {
     continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
@@ -100,6 +101,7 @@
 &sk {
     release-after-ms = <2000>;
     quick-release;
+    lazy;
 };
 
 / {
@@ -138,25 +140,30 @@
         LOW_COL_COMBO(combo_asterisk, 7, ASTERISK);
         LOW_COL_COMBO(combo_ampersand, 8, AMPERSAND);
 
+        /* Not only are these a different direction from the above
+         * they also have different timeout-terms to prevent mis-fires
+         * on roll-over */
+
         /* () */
-        BASE_COMBO(combo_lparen, 22, 23, LEFT_PARENTHESIS, U_IDLE_MS);
-        BASE_COMBO(combo_rparen, 27, 26, RIGHT_PARENTHESIS, U_IDLE_MS);
+        COMBO(combo_lparen, 22, 23, LEFT_PARENTHESIS, 30, U_IDLE_MS);
+        COMBO(combo_rparen, 27, 26, RIGHT_PARENTHESIS, 30, U_IDLE_MS);
 
         /* {} */
-        BASE_COMBO(combo_lbrace, 21, 22, LEFT_BRACE, U_IDLE_MS);
-        BASE_COMBO(combo_rbrace, 28, 27, RIGHT_BRACE, U_IDLE_MS);
-
-        /* <> */
-        BASE_COMBO(combo_langle, 23, 24, LESS_THAN, U_IDLE_MS);
-        BASE_COMBO(combo_rangle, 26, 25, GREATER_THAN, U_IDLE_MS);
+        COMBO(combo_lbrace, 21, 22, LEFT_BRACE, 30, U_IDLE_MS);
+        COMBO(combo_rbrace, 28, 27, RIGHT_BRACE, 30, U_IDLE_MS);
 
         /* [] */
-        BASE_COMBO(combo_lbracket, 21, 23, LEFT_BRACKET, U_IDLE_MS);
-        BASE_COMBO(combo_rbracket, 28, 26, RIGHT_BRACKET, U_IDLE_MS);
+        COMBO(combo_lbracket, 21, 23, LEFT_BRACKET, 30, U_IDLE_MS);
+        COMBO(combo_rbracket, 28, 26, RIGHT_BRACKET, 30, U_IDLE_MS);
+
+        /* <> */
+        COMBO(combo_langle, 23, 24, LESS_THAN, 20, U_IDLE_MS);
+        COMBO(combo_rangle, 26, 25, GREATER_THAN, 20, U_IDLE_MS);
 
         /* Functional keys */
-        BASE_COMBO(combo_backspace, 6, 7, BACKSPACE, U_IDLE_MS);
-        BASE_COMBO(combo_delete, 7, 8, DELETE, U_IDLE_MS);
+        /* These get a lenient combo term, but not as lenient idle requirement */
+        COMBO(combo_backspace, 6, 7, BACKSPACE, COMBO_TERM_MS, U_IDLE_MS);
+        COMBO(combo_delete, 7, 8, DELETE, COMBO_TERM_MS, U_IDLE_MS);
     };
 
     behaviors {
