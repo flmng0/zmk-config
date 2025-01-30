@@ -161,8 +161,8 @@
 
         /* Functional keys */
         /* These get a lenient combo term, but not as lenient idle requirement */
-        COMBO(combo_backspace, 6, 7, BACKSPACE, COMBO_TERM_MS, U_IDLE_MS);
-        COMBO(combo_delete, 7, 8, DELETE, COMBO_TERM_MS, U_IDLE_MS);
+        COMBO(combo_backspace, 6, 7, BACKSPACE, COMBO_TERM_MS, COMBO_IDLE_MS);
+        COMBO(combo_delete, 7, 8, DELETE, COMBO_TERM_MS, COMBO_IDLE_MS);
     };
 
     behaviors {
@@ -186,7 +186,8 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            require-prior-idle-ms = <U_IDLE_MS>;
+            quick-tap-ms = <120>;
+            /* require-prior-idle-ms = <U_IDLE_MS>; */
             bindings = <&kp>, <&kp>;
         };
 
