@@ -258,7 +258,7 @@
                 &kp LCTRL &kp Z     &kp S     &kp X     &kp C     &kp V     &kp N1    &kp N2    &kp N3    &none
                                               &kp LALT  &kp SPACE &none     &none
             >;
-        }
+        };
     };
 
 };
