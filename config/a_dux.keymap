@@ -220,7 +220,7 @@
             display-name = "NAV";
 
             bindings = <
-                POW_TAP(ESC) &none     &none     &none     &none     &kp PG_UP &none     &none     &none     &to GAME
+                POW_TAP(ESC) &none     &none     &none     &none     &kp PG_UP &none     &none     &none     &none
                 &kp LGUI     &kp LALT  &kp LSHFT &kp LCTRL &none     &kp PG_DN N_LEFT    N_DOWN    N_UP      N_RIGHT
                 &none        &none     &none     &none     &none     &none     &kp H     &kp J     &kp K     &kp L
                                                  &trans    &trans    &trans    &trans
@@ -242,7 +242,7 @@
             display-name = "FUN";
 
             bindings = <
-                &btp0     BLUED(0)  &none     &none     &none       &kp C_PP    &kp C_PREV   &kp C_NEXT   &none   &none
+                &btp0     BLUED(0)  &none     &none     &none       &kp C_PP    &kp C_PREV   &kp C_NEXT   &none   &to GAME
                 &btp1     BLUED(1)  &none     &none     &none       &kp C_MUTE  &kp C_VOL_DN &kp C_VOL_UP &none   &none
                 &btp2     BLUED(2)  &none     &none     &bootloader &bootloader &none        &none        &none   &none
                                               &none     &none       &trans      &trans
@@ -255,7 +255,7 @@
             bindings = <
                 &kp TAB   &kp Q     &kp N1    &kp E     &kp R     &kp T     &kp N7    &kp N8    &kp N9    &to BASE
                 &kp LSHFT &kp A     &kp W     &kp D     &kp G     &kp F     &kp N4    &kp N5    &kp N6    &none
-                &kp LCTRL &kp Z     &kp S     &kp X     &kp C     &kp V     &kp N1    &kp N2    &kp N3    &none
+                &kp LCTRL &kp Z     &kp S     &kp X     &kp C     &kp V     &kp N1    &kp N2    &kp N3    &kp ESC
                                               &kp LALT  &kp SPACE &none     &none
             >;
         };
